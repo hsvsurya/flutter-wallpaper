@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:wallpaper/models/wallpaper.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:wallpaper/screens/downloader_screen.dart';
 // import 'package:provider/provider.dart';
 
@@ -14,6 +17,8 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
 
   Widget _buildGrid(BuildContext context, DocumentSnapshot ss, int ind) {
     Map docs = ss.data();
+    // Image image = Image.network('src');
+    // image = Image.network(docs['imageUrl'].toString(), fit: BoxFit.fill);
     // final images = Provider.of<Data>(context).list;
     // images.add(docs['imageUrl']);
     // var s = FirebaseStorage.instance
@@ -21,6 +26,13 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
     //     .child('wallpapers')
     //     .getDownloadURL()
     //     .toString();
+    // if (reqIndex.contains(ind + 1)) {
+    //   lis.putIfAbsent(ind, () {
+    //     return docs['imageUrl'];
+    //   });
+    //   reqIndex.add(ind + 1);
+    // }
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
@@ -30,6 +42,7 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
         child: Image.network(
           // s,
           docs['imageUrl'].toString(),
+          filterQuality: FilterQuality.low,
           fit: BoxFit.fill,
         ),
         // child: Text(s),
@@ -39,16 +52,22 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
 
   Color changeColor(int c) {
     if (c == 0) {
-      c++;
-      return Colors.orange;
+      c = 1;
+      return Colors.indigo;
     } else if (c == 1) {
-      c++;
+      c = 2;
       return Colors.blueAccent;
     } else {
       c = 0;
       return Colors.deepPurple;
     }
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   precacheImage(image.image, context);
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,3 +153,12 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
     );
   }
 }
+
+// CachedNetworkImage(
+//             placeholder: (context, url) => Center(
+//               child: CircularProgressIndicator(),
+//             ),
+//             filterQuality: FilterQuality.medium,
+//             imageUrl: docs['imageUrl'],
+//             fadeInCurve: Curves.easeIn,
+//           )

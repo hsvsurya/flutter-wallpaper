@@ -1,12 +1,3 @@
-import 'package:flutter/material.dart';
+Map<int, String> lis = {};
 
-class Data with ChangeNotifier {
-  Map<dynamic, dynamic> _list;
-
-  get list {
-    if (_list.isEmpty) {
-      return;
-    }
-    return _list;
-  }
-}
+List<int> reqIndex = [];
