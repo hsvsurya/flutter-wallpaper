@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:wallpaper/models/wallpaper.dart';
-import 'package:wallpaper/screens/downloader_screen.dart';
-import 'package:wallpaper/screens/wallpaper_screen.dart';
+import 'package:Klao/screens/downloader_screen.dart';
+import 'package:Klao/screens/wallpaper_screen.dart';
 // import 'package:provider/provider.dart';
 
 void main() async {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wallpaper',
+      title: 'Klao',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         // primaryColor: Colors.blue,

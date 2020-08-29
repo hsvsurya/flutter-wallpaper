@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:wallpaper/models/wallpaper.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
-import 'package:wallpaper/screens/downloader_screen.dart';
+import 'package:Klao/screens/downloader_screen.dart';
 // import 'package:provider/provider.dart';
 
 class WallpaperScreen extends StatefulWidget {
@@ -83,7 +83,7 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
             padding: EdgeInsets.all(20),
             // height: 90,
             child: Text(
-              'Wallpaper',
+              'Klao',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 40,
