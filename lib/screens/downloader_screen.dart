@@ -37,7 +37,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
         var imageId = await ImageDownloader.downloadImage(
           url,
           destination: AndroidDestinationType.directoryPictures
-            ..subDirectory('Walls/$url.jpg'),
+            ..subDirectory('Klao/$url.jpg'),
         );
         if (imageId == null) {
           return Toast.show(
