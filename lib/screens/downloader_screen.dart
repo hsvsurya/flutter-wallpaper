@@ -12,7 +12,8 @@ import 'package:toast/toast.dart';
 
 class DownloadScreen extends StatefulWidget {
   final String url;
-  DownloadScreen({this.url});
+  final int id;
+  DownloadScreen({this.url, this.id});
   static const routeName = '/download';
 
   @override
@@ -78,11 +79,15 @@ class _DownloadScreenState extends State<DownloadScreen> {
 
     return Scaffold(
       body: GridTile(
-        child: Image.network(
-          widget.url,
-          fit: BoxFit.fill,
-          width: double.minPositive,
-          height: double.minPositive,
+        child: Container(
+          child: Hero(
+            tag: widget.id,
+            child: FadeInImage(
+              placeholder: NetworkImage(widget.url),
+              image: NetworkImage(widget.url),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         footer: Container(
           decoration: BoxDecoration(
