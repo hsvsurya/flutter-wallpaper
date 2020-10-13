@@ -1,15 +1,16 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:Klao/screens/downloader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:wallpaper/models/wallpaper.dart';
+import 'package:Klao/Providers/wallpaper.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:Klao/screens/downloader_screen.dart';
 // import 'package:image_downloader/image_downloader.dart';
 // import 'package:toast/toast.dart';
 // import 'package:flutter/services.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class WallpaperScreen extends StatefulWidget {
   static int count = 0;
@@ -20,6 +21,16 @@ class WallpaperScreen extends StatefulWidget {
 class _WallpaperScreenState extends State<WallpaperScreen> {
   Widget _buildGrid(BuildContext context, DocumentSnapshot ss, int ind) {
     Map docs = ss.data();
+
+    final image = Provider.of<Walls>(context).walls;
+
+    image.add(
+      Wallpaper(
+        docs['id'],
+        docs['imageUrl'],
+      ),
+    );
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
@@ -30,18 +41,20 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
         child: SizedBox(
           child: Hero(
             // s,
-            tag: docs['id'],
+            tag: image[ind].id,
             child: Material(
               child: InkWell(
                 splashColor: Colors.amber,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: changeColor(WallpaperScreen.count),
+                    color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                        .withOpacity(1.0),
                   ),
                   child: GridTile(
                     child: Image.network(
                       docs['imageUrl'].toString(),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
                     ),
                   ),
                 ),
@@ -63,19 +76,6 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
         ),
       ),
     );
-  }
-
-  Color changeColor(int c) {
-    if (c == 0) {
-      c = 1;
-      return Colors.indigo;
-    } else if (c == 1) {
-      c = 2;
-      return Colors.blueAccent;
-    } else {
-      c = 0;
-      return Colors.deepPurple;
-    }
   }
 
   // @override
@@ -160,18 +160,3 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
 //             imageUrl: docs['imageUrl'],
 //             fadeInCurve: Curves.easeIn,
 //           )
-
-// Navigator(
-//                     initialRoute: '/',
-//                     onGenerateRoute: (path) => PageRouteBuilder(
-//                       pageBuilder: (context, _, __) {
-//                         return DownloadScreen(
-//                           url: docs['imageUrl'],
-//                           id: docs['id'],
-//                         );
-//                       },
-//                     ),
-//                     observers: [
-//                       HeroController(),
-//                     ],
-//                   );

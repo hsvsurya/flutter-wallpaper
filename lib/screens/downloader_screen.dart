@@ -58,7 +58,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
           await ImageDownloader.open(path).catchError((error) {
             if (error is PlatformException) {
               if (error.code == "preview_error") {
-                print(error.message);
+                // print(error.message);
               }
             }
           });
@@ -85,7 +85,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
             child: FadeInImage(
               placeholder: NetworkImage(widget.url),
               image: NetworkImage(widget.url),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
         ),
