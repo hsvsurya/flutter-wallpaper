@@ -1,4 +1,5 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
@@ -82,9 +83,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
         child: Container(
           child: Hero(
             tag: widget.id,
-            child: FadeInImage(
-              placeholder: NetworkImage(widget.url),
-              image: NetworkImage(widget.url),
+            child: CachedNetworkImage(
+              placeholder: (context, url) => CircularProgressIndicator(),
+              imageUrl: widget.url,
               fit: BoxFit.cover,
             ),
           ),

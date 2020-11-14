@@ -4,13 +4,13 @@ import 'dart:ui';
 import 'package:Klao/screens/downloader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Klao/Providers/wallpaper.dart';
-// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:Klao/Providers/wallpaper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:Klao/screens/downloader_screen.dart';
 // import 'package:image_downloader/image_downloader.dart';
 // import 'package:toast/toast.dart';
 // import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class WallpaperScreen extends StatefulWidget {
   static int count = 0;
@@ -22,15 +22,6 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
   Widget _buildGrid(BuildContext context, DocumentSnapshot ss, int ind) {
     Map docs = ss.data();
 
-    final image = Provider.of<Walls>(context).walls;
-
-    image.add(
-      Wallpaper(
-        docs['id'],
-        docs['imageUrl'],
-      ),
-    );
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
@@ -41,7 +32,7 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
         child: SizedBox(
           child: Hero(
             // s,
-            tag: image[ind].id,
+            tag: docs['id'],
             child: Material(
               child: InkWell(
                 splashColor: Colors.amber,
@@ -51,9 +42,11 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
                         .withOpacity(1.0),
                   ),
                   child: GridTile(
-                    child: Image.network(
-                      docs['imageUrl'].toString(),
+                    child: CachedNetworkImage(
+                      imageUrl: docs['imageUrl'].toString(),
                       fit: BoxFit.cover,
+                      fadeInCurve: Curves.easeIn,
+                      fadeInDuration: Duration(microseconds: 100),
                       filterQuality: FilterQuality.none,
                     ),
                   ),
@@ -77,12 +70,6 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
       ),
     );
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   precacheImage(image.image, context);
-  //   super.didChangeDependencies();
-  // }
 
   @override
   Widget build(BuildContext context) {
